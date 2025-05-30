@@ -1,0 +1,64 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.targets.wheel]
+include = ["cde_benchmark"]
+
+[project]
+name = "cde_benchmark"
+dynamic = ["version"]
+description = "The code used to train and run inference with the OptimusVLM architecture."
+authors = [
+    { name = "Manuel Faysse", email = "manuel.faysse@illuin.tech" },
+]
+maintainers = [
+    { name = "Manuel Faysse", email = "manuel.faysse@illuin.tech" },
+]
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "torch>=2.2.0",
+    "mteb>=1.16.3,<1.29.0",
+    "datasets>=2.19.1",
+    "sentence_transformers>=3.3.1",
+    "transformers>=4.48.0,<4.49.0",
+    # "git+https://github.com/mlconti1/contextual-embeddings"
+
+]
+
+[project.optional-dependencies]
+
+
+dev = ["pytest>=8.0.0", "ruff>=0.4.0"]
+
+all = ["cde_benchmark"]
+
+[project.urls]
+homepage = "https://github.com/ManuelFay/contextualized-embeddings-benchmark"
+
+[tool.pytest.ini_options]
+filterwarnings = ["ignore::Warning"]
+markers = ["slow: marks test as slow"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
